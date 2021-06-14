@@ -6,30 +6,7 @@
     var note_product = document.getElementById('note_product')
     var coin_product = document.getElementById('coin_product')
     var valueSuccess = true;
-var products = [
-    {
-        id:'1',
-        name: 'giày adidas',
-        number:'100',
-        date:'2021-06-01',
-        coin:'200',
-    },
-    {
-        id:'2',
-        name:'áo adidas',
-        number:'50',
-        date:'2021-06-02',
-        coin:'150',
-    },
-    {
-        id:'3',
-        name:'áo balenciaga',
-        number:'150',
-        date:'2021-06-04',
-        coin:'499'
-    }
-]
-
+    var linkApiProduct = "http://localhost:3000/product"
 
 function setValue() {
     var idValue = id_product.value.trim();
@@ -91,7 +68,7 @@ function setValue() {
 
     if(valueSuccess===true)
     {
-        products.push(
+        var formData = 
             {
                 id:idValue,
                 name:nameValue,
@@ -99,9 +76,8 @@ function setValue() {
                 number:numberValue,
                 coin:coinValue,
             }
-        )
+        handerAddProduct(formData)
     }  
-    renderTabale()
 }
 
 function setError(input,message) {
@@ -116,7 +92,7 @@ function setSuccess(input) {
     formInput.className = 'from-add success';
 }
 
-function renderTabale(){
+function renderTabale(products){
     var tablerender = 
     `<tr>
         <th>MÃ SP</th>
@@ -125,16 +101,46 @@ function renderTabale(){
         <th>NGÀY NHẬN</th>
         <th>GIÁ SP</th>
     </tr>`
-    for( var i = 0;i<products.length;i++)
-    {
-        tablerender += `<tr>
-        <td>${products[i].id}</td>
-        <td>${products[i].name}</td>
-        <td>${products[i].number}</td>   
-        <td>${products[i].date}</td>
-        <td>${products[i].coin}</td>
-        <td><i class="far fa-caret-square-down"></td>   `
-    }
-    document.getElementById('bang').innerHTML = tablerender 
+    var htmls = products.map(function(product){
+        return ` 
+        <tr>
+        <td>${product.id}</td>
+        <td>${product.name}</td>
+        <td>${product.number}</td>   
+        <td>${product.date}</td>
+        <td>${product.coin}</td>
+        <td><i class="far fa-caret-square-down"></td>
+        </tr>`;     
+    })
+    tablerender = tablerender + htmls;
+    document.querySelector('#bang').innerHTML = tablerender 
 }
-renderTabale();
+
+function start()
+{
+    getProduct(renderTabale)
+}
+
+start()
+
+function getProduct(callback){
+    fetch(linkApiProduct)
+        .then(function(products){
+            return products.json()
+        })
+        .then(callback)
+}
+
+function handerAddProduct(data,callback){
+    var options = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers:{
+            'Content-Type': 'application/json'}
+    }
+    fetch(linkApiProduct,options)
+        .then(function(products){
+            products.json()
+        })
+        .then(callback)
+}

@@ -1,0 +1,32 @@
+{
+  "product": [
+    {
+      "id": 1,
+      "name": "giày adidas",
+      "number": 100,
+      "date": "2021-06-01",
+      "coin": 200
+    },
+    {
+      "id": 2,
+      "name": "áo adidas",
+      "numbe": 50,
+      "date": "2021-06-02",
+      "coin": 150
+    },
+    {
+      "id": 3,
+      "name": "áo balenciaga",
+      "number": 150,
+      "date": "2021-06-04",
+      "coin": 499
+    },
+    {
+      "id": "123",
+      "name": "123",
+      "date": "2021-06-25",
+      "number": "123",
+      "coin": "123"
+    }
+  ]
+}

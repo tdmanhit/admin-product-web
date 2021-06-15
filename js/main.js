@@ -109,10 +109,16 @@ function renderTabale(products){
         <td>${product.number}</td>   
         <td>${product.date}</td>
         <td>${product.coin}</td>
-        <td><i class="far fa-caret-square-down"></td>
+        <td class="add-fix-delete">
+            <div class="input-fix">
+            <input type="submit" value="delete">
+            <input type="submit" value ="fix">
+            </div>
+            <i class="far fa-caret-square-down icon-input">
+        </td>
         </tr>`;     
     })
-    tablerender = tablerender + htmls;
+    tablerender = tablerender + htmls.join("");
     document.querySelector('#bang').innerHTML = tablerender 
 }
 
